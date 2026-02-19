@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GDCT Hạ sĩ quan xuất ngũ</title>
+
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+    font-family: Arial, sans-serif;
+    padding:20px;
+    background:#f0f8ff;
+}
+
+header {
+    background: rgba(255,255,255,0.9);
+    padding:20px;
+    text-align:center;
+    border-radius:0 0 20px 20px;
+}
+header h1 {
+    color:#007BFF;
+    font-size:1.6rem;
+}
+
+section {
+    max-width:760px;
+    margin:30px auto;
+}
+
+.lesson-box {
+    background: rgba(255,255,255,0.7);
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition: 0.3s;
+}
+.lesson-box:hover {
+    box-shadow:0 5px 12px rgba(0,0,0,0.25);
+}
+
+.lesson-header {
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.lesson-left {
+    display:flex;
+    align-items:center;
+}
+
+.lesson-number {
+    font-weight:bold;
+    font-size:1.2rem;
+    width:28px;
+}
+
+.icon {
+    font-size:2.2rem;
+    margin:0 12px;
+}
+
+.lesson-title {
+    font-weight:bold;
+    line-height:1.4;
+}
+
+.lesson-content {
+    display:none;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px dashed #aaa;
+    line-height:1.6;
+    font-size:0.95rem;
+}
+
+.checkbox {
+    transform: scale(1.3);
+}
+
+button {
+    background:#1e3c72;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    padding:10px 16px;
+    cursor:pointer;
+    margin-bottom:18px;
+}
+button:hover {
+    background:#2a5298;
+}
+
+@media(max-width:500px){
+    .icon{font-size:2rem;}
+}
+</style>
+
+<script>
+function toggleContent(id) {
+    const el = document.getElementById(id);
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+}
+</script>
+</head>
+
+<body>
+
+<header>
+    <h1>Giáo dục chính trị<br>Hạ sĩ quan xuất ngũ</h1>
+</header>
+
+<section>
+
+<a href="gdct-co-ban.html">
+    <button>⏪ Quay lại</button>
+</a>
+
+<!-- Bài 1 -->
+<div class="lesson-box" onclick="toggleContent('bai1')">
+    <div class="lesson-header">
+        <div class="lesson-left">
+            <div class="lesson-number">1</div>
+            <div class="icon">📘</div>
+            <div class="lesson-title">
+                Bảo vệ Tổ quốc Việt Nam XHCN<br>
+                trong tình hình mới
+            </div>
+        </div>
+        <input type="checkbox" class="checkbox">
+    </div>
+    <div class="lesson-content" id="bai1">
+        • Quan điểm của Đảng về bảo vệ Tổ quốc.<br>
+        • Nhiệm vụ quốc phòng, an ninh trong giai đoạn hiện nay.<br>
+        • Trách nhiệm của hạ sĩ quan sau khi xuất ngũ.<br>
+    </div>
+</div>
+
+<!-- Bài 2 -->
+<div class="lesson-box" onclick="toggleContent('bai2')">
+    <div class="lesson-header">
+        <div class="lesson-left">
+            <div class="lesson-number">2</div>
+            <div class="icon">🌊</div>
+            <div class="lesson-title">
+                Biển, đảo Việt Nam và nhiệm vụ<br>
+                bảo vệ chủ quyền hiện nay
+            </div>
+        </div>
+        <input type="checkbox" class="checkbox">
+    </div>
+    <div class="lesson-content" id="bai2">
+        • Vị trí, vai trò của biển đảo Việt Nam.<br>
+        • Tình hình Biển Đông hiện nay.<br>
+        • Trách nhiệm công dân trong bảo vệ chủ quyền biển đảo.<br>
+    </div>
+</div>
+
+<!-- Bài 3 -->
+<div class="lesson-box" onclick="toggleContent('bai3')">
+    <div class="lesson-header">
+        <div class="lesson-left">
+            <div class="lesson-number">3</div>
+            <div class="icon">🛡️</div>
+            <div class="lesson-title">
+                Đường lối, chính sách quốc phòng –<br>
+                an ninh của Đảng, Nhà nước
+            </div>
+        </div>
+        <input type="checkbox" class="checkbox">
+    </div>
+    <div class="lesson-content" id="bai3">
+        • Xây dựng nền quốc phòng toàn dân.<br>
+        • Kết hợp kinh tế với quốc phòng – an ninh.<br>
+        • Vai trò lực lượng dự bị động viên.<br>
+    </div>
+</div>
+
+<!-- Bài 4 -->
+<div class="lesson-box" onclick="toggleContent('bai4')">
+    <div class="lesson-header">
+        <div class="lesson-left">
+            <div class="lesson-number">4</div>
+            <div class="icon">⭐</div>
+            <div class="lesson-title">
+                Phát huy phẩm chất “Bộ đội Cụ Hồ”<br>
+                khi trở về địa phương
+            </div>
+        </div>
+        <input type="checkbox" class="checkbox">
+    </div>
+    <div class="lesson-content" id="bai4">
+        • Giữ gìn phẩm chất chính trị, đạo đức.<br>
+        • Chấp hành pháp luật, tích cực lao động.<br>
+        • Gương mẫu xây dựng đời sống văn hóa ở địa phương.<br>
+    </div>
+</div>
+
+</section>
+
+</body>
+</html>

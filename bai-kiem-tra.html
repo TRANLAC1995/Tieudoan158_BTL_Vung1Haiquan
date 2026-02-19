@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài kiểm tra</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:Arial,sans-serif;
+  padding:15px;
+  background:#f0f8ff;
+}
+header{
+  background:#fff;
+  padding:15px;
+  text-align:center;
+  border-radius:0 0 20px 20px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+header h1{color:#007BFF;}
+section{max-width:900px;margin:20px auto;}
+.grid-main{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+.square-main{
+  background:#fff;
+  border-radius:20px;
+  text-align:center;
+  padding:30px 10px;
+  cursor:pointer;
+}
+button{
+  background:#1e3c72;
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  padding:10px 15px;
+  cursor:pointer;
+}
+.card{
+  background:#fff;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+label{
+  display:block;
+  padding:8px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  margin-top:5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>BÀI KIỂM TRA TRẮC NGHIỆM</h1>
+  <div id="timer">⏱ 10:00</div>
+</header>
+
+<section id="home">
+  <div class="grid-main">
+    <div class="square-main" onclick="chooseExam(1)">📘 Đề 1</div>
+    <div class="square-main" onclick="chooseExam(2)">📗 Đề 2</div>
+    <div class="square-main" onclick="chooseExam(3)">📙 Đề 3</div>
+    <div class="square-main" onclick="chooseExam(4)">📕 Đề 4</div>
+  </div>
+</section>
+
+<section id="quizArea" style="display:none">
+  <div class="card">
+    <input id="fullname" placeholder="Họ và tên"><br><br>
+    <input id="unit" placeholder="Đơn vị"><br><br>
+    <input id="team" placeholder="Trung đội"><br><br>
+    <button id="startBtn" onclick="begin()">▶ Bắt đầu</button>
+  </div>
+
+  <div id="questions"></div>
+
+  <button onclick="submit()">✅ Nộp bài</button>
+  <button onclick="location.href='hoctap.html'">⬅ Quay lại trang chủ</button>
+</section>
+
+<script>
+let selected=null;
+let started=false;
+let time=600;
+let interval;
+let currentQuestions=[];
+
+const questionsDB=[
+  {q:"Quốc kỳ Việt Nam màu gì?",a:["Đỏ sao vàng","Xanh trắng","Vàng xanh","Đỏ trắng"],c:0},
+  {q:"Ngày thành lập QĐND VN?",a:["22/12","2/9","30/4","19/5"],c:0},
+  {q:"Chủ tịch Hồ Chí Minh là ai?",a:["Lãnh tụ","Nhà văn","Nhà khoa học","Bác sĩ"],c:0},
+  {q:"Bộ binh dùng vũ khí gì?",a:["AK","Máy bay","Tàu ngầm","Tên lửa"],c:0},
+  {q:"Chiến tranh nhân dân là gì?",a:["Toàn dân","Chuyên nghiệp","Công nghệ","Đặc nhiệm"],c:0},
+  {q:"Ngày Quốc khánh?",a:["2/9","30/4","22/12","1/5"],c:0},
+  {q:"Quân đội thuộc ai lãnh đạo?",a:["Đảng","Doanh nghiệp","Cá nhân","Tư nhân"],c:0},
+  {q:"Lễ nghi gồm?",a:["Chào","Ngủ","Ăn","Học"],c:0},
+  {q:"Màu quân kỳ?",a:["Đỏ","Xanh","Trắng","Vàng"],c:0},
+  {q:"Nhiệm vụ QĐ?",a:["Bảo vệ TQ","Kinh doanh","Du lịch","Giải trí"],c:0}
+];
+
+function chooseExam(e){
+  selected=e;
+  home.style.display="none";
+  quizArea.style.display="block";
+}
+
+function begin(){
+  const fullname=document.getElementById("fullname");
+  const unit=document.getElementById("unit");
+  const team=document.getElementById("team");
+
+  if(!fullname.value.trim()||!unit.value.trim()||!team.value.trim()){
+    alert("⚠️ Nhập đủ thông tin");
+    return;
+  }
+
+  fullname.disabled=unit.disabled=team.disabled=startBtn.disabled=true;
+  started=true;
+
+  renderQuestions();
+  interval=setInterval(timerTick,1000);
+}
+
+function renderQuestions(){
+  questions.innerHTML="";
+  currentQuestions=[...questionsDB].sort(()=>Math.random()-0.5).slice(0,10);
+
+  currentQuestions.forEach((q,i)=>{
+    let html=`<div class="card"><b>Câu ${i+1}: ${q.q}</b>`;
+    q.a.forEach((t,j)=>{
+      html+=`<label><input type="radio" name="q${i}" value="${j}"> ${t}</label>`;
+    });
+    html+=`</div>`;
+    questions.innerHTML+=html;
+  });
+}
+
+function timerTick(){
+  time--;
+  let m=Math.floor(time/60),s=time%60;
+  timer.innerText=`⏱ ${m}:${s<10?'0'+s:s}`;
+  if(time<=0) submit();
+}
+
+function submit(){
+  if(!started) return;
+  clearInterval(interval);
+
+  let score=0;
+  currentQuestions.forEach((q,i)=>{
+    const checked=document.querySelector(`input[name="q${i}"]:checked`);
+    if(checked && parseInt(checked.value)===q.c) score++;
+  });
+
+  // 👉 LƯU KẾT QUẢ CHO TRANG ketqua.html
+  localStorage.setItem(
+    "score_"+Date.now(),
+    JSON.stringify({
+      name:fullname.value,
+      unit:unit.value,
+      team:team.value,
+      exam:selected,
+      score:score
+    })
+  );
+
+  alert(`🎉 Điểm của bạn: ${score}/10`);
+}
+</script>
+
+</body>
+</html>

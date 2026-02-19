@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bình dân học vụ số – QĐND Việt Nam</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#eef7ee,#f9fff9);
+  padding:20px;
+}
+header{
+  background:#2e7d32;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+  border-radius:0 0 18px 18px;
+}
+section{max-width:900px;margin:25px auto;}
+
+.back{
+  background:#0b3d91;color:#fff;border:none;
+  padding:8px 14px;border-radius:10px;cursor:pointer;
+  margin-bottom:15px;
+}
+
+.button-grid{
+  display:grid;gap:12px;margin-bottom:18px;
+}
+.btn-lesson{
+  padding:16px;border-radius:14px;border:none;
+  cursor:pointer;text-align:left;font-size:1rem;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+.btn-lesson.active{outline:3px solid #1b5e20;}
+.lesson1{background:#dcedc8;}
+.lesson2{background:#ffe0b2;}
+.lesson3{background:#bbdefb;}
+.lesson4{background:#f8bbd0;}
+
+#lesson-content{
+  background:#fff;padding:20px;border-radius:16px;
+  box-shadow:0 5px 12px rgba(0,0,0,.25);
+}
+
+h2{color:#0b3d91;margin-bottom:10px;}
+ol li{margin-bottom:14px;line-height:1.5;}
+.correct{color:#2e7d32;font-weight:bold;}
+.wrong{color:#c62828;font-weight:bold;}
+
+#submit{
+  background:#2e7d32;color:#fff;border:none;
+  padding:10px 18px;border-radius:10px;cursor:pointer;
+}
+
+.stats{
+  margin-top:15px;padding:12px;
+  background:#f1f8e9;border-radius:12px;
+  border-left:6px solid #2e7d32;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Bình dân học vụ số<br>Trong Quân đội nhân dân Việt Nam</h1>
+</header>
+
+<section>
+<a href="hoctap.html"><button class="back">⏪ Quay lại</button></a>
+
+<div class="button-grid">
+  <button class="btn-lesson lesson1" onclick="showLesson(1,this)">1. Kiến thức cơ bản</button>
+  <button class="btn-lesson lesson2" onclick="showLesson(2,this)">2. Trắc nghiệm nhận thức</button>
+  <button class="btn-lesson lesson3" onclick="showLesson(3,this)">3. Thực hành</button>
+  <button class="btn-lesson lesson4" onclick="showLesson(4,this)">4. Kinh nghiệm</button>
+</div>
+
+<div id="lesson-content">👉 Chọn nội dung để học tập</div>
+</section>
+
+<script>
+// ===== KIẾN THỨC =====
+const lessons={
+1:`<h2>1. Kiến thức cơ bản</h2>
+<ul>
+<li>Bình dân học vụ số là phong trào nâng cao nhận thức và kỹ năng số cho cán bộ, chiến sĩ trong Quân đội.</li>
+<li>Chuyển đổi số trong Quân đội nhằm nâng cao hiệu quả quản lý, chỉ huy, huấn luyện và sẵn sàng chiến đấu.</li>
+<li>Quân nhân phải sử dụng internet, mạng xã hội và thiết bị thông minh đúng quy định, bảo đảm an toàn thông tin.</li>
+<li>Mỗi quân nhân cần chủ động học tập, nâng cao trình độ công nghệ, đáp ứng yêu cầu nhiệm vụ trong thời kỳ số.</li>
+</ul>`,
+
+3:`<h2>3. Thực hành</h2>
+<ul>
+<li>Sử dụng thành thạo các nền tảng số phục vụ công tác, huấn luyện.</li>
+<li>Thực hiện ký số, văn bản điện tử theo đúng quy định.</li>
+<li>Chủ động phát hiện và báo cáo nguy cơ mất an toàn thông tin.</li>
+<li>Tham gia tuyên truyền, hướng dẫn đồng đội nâng cao kỹ năng số.</li>
+</ul>`,
+
+4:`<h2>4. Kinh nghiệm</h2>
+<ul>
+<li>Kết hợp chặt chẽ giữa giáo dục chính trị và giáo dục kỹ năng số.</li>
+<li>Lấy người học làm trung tâm, tăng cường thực hành trên nền tảng số.</li>
+<li>Phát huy vai trò nêu gương của cán bộ trong chuyển đổi số.</li>
+<li>Bảo đảm an toàn, bảo mật thông tin quân sự trong mọi tình huống.</li>
+</ul>`
+};
+
+// ===== NGÂN HÀNG CÂU HỎI =====
+const questionBank=[
+{q:"Chuyển đổi số trong Quân đội nhằm mục tiêu gì?",a:["Nâng cao hiệu quả quản lý, chỉ huy","Chỉ để theo phong trào","Giảm huấn luyện trực tiếp"],c:0},
+{q:"Bình dân học vụ số tập trung vào nội dung nào?",a:["Nâng cao kỹ năng và nhận thức số","Giảm sử dụng công nghệ","Chỉ học lý thuyết"],c:0},
+{q:"Quân nhân sử dụng mạng internet phải?",a:["Tuân thủ quy định bảo mật","Tự do tuyệt đối","Chia sẻ mọi thông tin"],c:0},
+{q:"An toàn thông tin là?",a:["Yêu cầu bắt buộc trong môi trường số","Không quan trọng","Chỉ dành cho cán bộ kỹ thuật"],c:0},
+{q:"Văn bản điện tử trong Quân đội cần?",a:["Ký số theo quy định","In ra giấy là đủ","Không cần xác thực"],c:0},
+{q:"Thiết bị thông minh trong đơn vị được sử dụng khi?",a:["Theo đúng quy định của cấp có thẩm quyền","Mọi lúc mọi nơi","Tùy ý cá nhân"],c:0},
+{q:"Phát hiện nguy cơ mất an toàn mạng cần?",a:["Báo cáo kịp thời","Bỏ qua","Tự xử lý không báo cáo"],c:0},
+{q:"Mỗi quân nhân trong chuyển đổi số phải?",a:["Chủ động học tập nâng cao trình độ số","Chờ được yêu cầu","Không cần học thêm"],c:0},
+{q:"Dữ liệu quân sự cần được?",a:["Bảo mật nghiêm ngặt","Chia sẻ rộng rãi","Lưu trữ tùy ý"],c:0},
+{q:"Chuyển đổi số góp phần?",a:["Nâng cao sức mạnh tổng hợp của đơn vị","Làm giảm hiệu quả công tác","Chỉ thay đổi hình thức báo cáo"],c:0},
+{q:"Học tập trên nền tảng số giúp?",a:["Tiết kiệm thời gian, nâng cao hiệu quả","Phức tạp hơn","Không có lợi ích"],c:0},
+{q:"Trách nhiệm của quân nhân trong môi trường số là?",a:["Giữ vững kỷ luật và bảo mật","Chỉ sử dụng cho cá nhân","Không liên quan nhiệm vụ"],c:0}
+];
+
+// ===== HIỂN THỊ =====
+function showLesson(n,btn){
+  document.querySelectorAll(".btn-lesson").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+
+  if(n!==2){
+    document.getElementById("lesson-content").innerHTML=lessons[n];
+  }else{
+    loadQuiz();
+  }
+}
+
+// ===== RANDOM QUIZ =====
+function shuffle(arr){
+  return arr.sort(()=>Math.random()-0.5);
+}
+
+let currentQuiz=[];
+
+function loadQuiz(){
+  currentQuiz=shuffle([...questionBank]).slice(0,10);
+  let html=`<h2>2. Trắc nghiệm nhận thức</h2><form>`;
+  currentQuiz.forEach((q,i)=>{
+    const answers=shuffle(q.a.map((t,idx)=>({t,idx})));
+    html+=`<ol start="${i+1}"><li id="q${i}">
+    ${q.q}<br>`;
+    answers.forEach(a=>{
+      html+=`<label><input type="radio" name="q${i}" value="${a.idx}"> ${a.t}</label><br>`;
+    });
+    html+=`</li></ol>`;
+  });
+  html+=`<button type="button" id="submit" onclick="checkQuiz()">Xem kết quả</button>
+  <div id="result"></div><div class="stats" id="stats"></div></form>`;
+  document.getElementById("lesson-content").innerHTML=html;
+}
+
+// ===== CHẤM & THỐNG KÊ =====
+function checkQuiz(){
+  let score=0;
+  currentQuiz.forEach((q,i)=>{
+    const radios=document.getElementsByName("q"+i);
+    radios.forEach(r=>{
+      if(r.checked && Number(r.value)===q.c){
+        score++;
+        document.getElementById("q"+i).className="correct";
+      }
+    });
+  });
+
+  let stats=JSON.parse(localStorage.getItem("quizStats"))||{times:0,best:0,total:0};
+  stats.times++;
+  stats.total+=score;
+  if(score>stats.best) stats.best=score;
+  localStorage.setItem("quizStats",JSON.stringify(stats));
+
+  document.getElementById("result").innerText=
+    `KẾT QUẢ: ${score}/10 câu đúng`;
+
+  document.getElementById("stats").innerHTML=
+  `📊 Thống kê học tập:
+  <br>• Số lần làm bài: ${stats.times}
+  <br>• Điểm cao nhất: ${stats.best}/10
+  <br>• Điểm trung bình: ${(stats.total/stats.times).toFixed(1)}/10`;
+}
+</script>
+
+
+</body>
+</html>

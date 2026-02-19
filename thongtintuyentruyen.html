@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ảnh hoạt động đơn vị</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;padding:20px;}
+
+/* Hình nền */
+#background{
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  background:url('background.jpg') no-repeat center center fixed;
+  background-size:cover;
+  z-index:-1;
+}
+
+/* Header */
+header{
+  background:rgba(255,255,255,.85);
+  padding:20px;
+  text-align:center;
+  position:fixed;
+  top:0;width:100%;
+  z-index:1000;
+  border-radius:0 0 20px 20px;
+  box-shadow:0 4px 10px rgba(0,0,0,.4);
+}
+header h1{
+  color:#007bff;
+  font-size:2rem;
+}
+
+/* Section */
+section{
+  max-width:1200px;
+  margin:120px auto 40px;
+}
+
+/* Card */
+.card{
+  background:rgba(255,255,255,.7);
+  padding:30px;
+  margin-bottom:30px;
+  border-radius:20px;
+  box-shadow:0 6px 15px rgba(0,0,0,.3);
+}
+.card h2{
+  margin-bottom:20px;
+  color:#1e3c72;
+}
+
+/* Nút */
+.btn{
+  display:inline-block;
+  background:#1e3c72;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:10px;
+  text-decoration:none;
+  margin-bottom:15px;
+  font-size:0.9rem;
+  cursor:pointer;
+}
+.btn:hover{background:#2a5298;}
+
+/* ===== THÔNG TIN ĐƠN VỊ ===== */
+.unit-wrap{
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+
+.unit-logo{
+  width:160px;
+  height:160px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+.unit-text{
+  flex:1;
+  min-width:260px;
+}
+
+.unit-text p{
+  margin-bottom:8px;
+  line-height:1.5;
+}
+
+.unit-text ul{
+  margin-left:18px;
+  margin-top:6px;
+}
+
+/* Accordion */
+.accordion{
+  margin-top:12px;
+}
+
+.acc-title{
+  background:#1e3c72;
+  color:white;
+  padding:10px 14px;
+  cursor:pointer;
+  font-weight:bold;
+  border-radius:8px;
+}
+
+.acc-content{
+  display:none;
+  padding:12px;
+  background:rgba(255,255,255,.6);
+  border-radius:0 0 8px 8px;
+}
+
+/* Slideshow */
+.slideshow{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+}
+.slideshow img{
+  width:100%;
+  height:400px;
+  object-fit:cover;
+  display:none;
+}
+.slideshow img.active{display:block;}
+
+/* Grid ảnh */
+.grid-images{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+/* Ảnh */
+.image-box{
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(5px);
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,.25);
+  cursor:pointer;
+  transition:.3s;
+}
+.image-box:hover{transform:translateY(-6px);}
+.image-box img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+/* Chú thích */
+.image-box p{
+  padding:10px 12px;
+  text-align:left;
+  font-size:0.85rem;
+  line-height:1.4;
+  color:#1e3c72;
+}
+.image-box p span{
+  display:block;
+  font-weight:bold;
+  margin-bottom:4px;
+}
+
+/* Lightbox */
+#lightbox{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+}
+#lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:15px;
+}
+
+@media(max-width:600px){
+  .slideshow img{height:250px;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="background"></div>
+
+<header>
+  <h1> Thông tin đơn vị</h1>
+</header>
+
+<section>
+
+<a class="btn" href="hoctap.html">⏪ Quay lại</a>
+<button class="btn" onclick="toggleCaption()">👁️ Ẩn/Hiện chú thích</button>
+
+<div class="card">
+  <h2>🏢 Thông tin đơn vị</h2>
+
+  <div class="unit-wrap">
+    <img src="logo.jpg" class="unit-logo">
+
+    <div class="unit-text">
+
+      <p><b>Tên đơn vị:</b> Tiểu đoàn 158, Vùng 1 Hải Quân</p>
+      <p><b>Địa chỉ:</b> Bạch Đằng, Hải Phòng</p>
+
+      <div class="accordion">
+        <div class="acc-title">📌 Chức năng nhiệm vụ</div>
+        <div class="acc-content">
+          <ul>
+            <li>Trực SSCĐ</li>
+            <li>Huấn luyện CSM, đào tạo học viên Tiểu đội trưởng BB</li>
+            <li>Làm tốt công tác dân vận, chính sách</li>
+            <li>Xây dựng nền quốc phòng toàn dân</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-title">📜 Lịch sử hình thành</div>
+        <div class="acc-content">
+          <p>
+           Tiểu đoàn 158 thành lập ngày 19/01/1990, đơn vị có nhiệm vụ huấn luyện CSM, đào tạo học viên Tiểu đội trưởng, huấn luyện chiến sĩ nấu ăn, trực sẵn sàng chiến đấu và các nhiệm vụ đột xuất khác. Qua các giai đoạn phát triển, đơn vị luôn hoàn thành tốt nhiệm vụ được giao.
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-title">🏆 Thành tích – Danh hiệu</div>
+        <div class="acc-content">
+          <ul>
+            <li>Đơn vị Quyết thắng nhiều năm liền</li>
+            <li>Bằng khen Bộ Quốc phòng</li>
+            <li>Bằng khen Quân chủng, Vùng</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-title">👨‍✈️ Khối thông tin chỉ huy</div>
+        <div class="acc-content">
+          <p>Tiểu đoàn trưởng: Trung tá Nguyễn Thành Tâm</p>
+          <p>Chính trị viên: Trung tá Phạm Văn Ái</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SLIDESHOW -->
+<div class="card">
+  <h2>🎞️ Hoạt động tiêu biểu</h2>
+  <div class="slideshow">
+    <img src="anh13.jpg" class="active">
+    <img src="anh2.jpg">
+    <img src="anh3.jpg">
+    <img src="anh16.jpg">
+    <img src="anh15.jpg">
+    <img src="anh17.jpg">
+    <img src="anh7.jpg">
+    <img src="anh8.jpg">
+    <img src="anh9.jpg">
+    <img src="anh10.jpg">
+    <img src="anh11.jpg">
+  <img src="anh12.jpg">
+  <img src="anh14.jpg">
+  <img src="anh1.jpg">
+
+  </div>
+</div>
+
+<!-- HUẤN LUYỆN -->
+<div class="card">
+  <h2> Huấn luyện – SSCĐ</h2>
+  <div class="grid-images">
+
+    <div class="image-box">
+      <img src="anh9.jpg">
+      <p>
+        <span>📅  Tháng 5/2025</span>
+       Kiểm tra ném lựu đạn cho CSM năm 2025
+      </p>
+    </div>
+
+    <div class="image-box">
+      <img src="anh14.jpg">
+      <p>
+        <span>📅 Ngày 21/01/2026</span>
+       Quân chủng Hải quân kiểm tra công tác chuẩn bị huấn luyện chiến sĩ mới tại Tiểu đoàn 158
+      </p>
+    </div>
+
+    <div class="image-box">
+      <img src="anh10.jpg">
+      <p>
+        <span>📅 Tháng 5/2025</span>
+        Kiểm tra bắn đạn thật Bài 1 súng TKAK
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- CÔNG TÁC DÂN VẬN -->
+<div class="card">
+  <h2>🤝 Công tác dân vận</h2>
+  <div class="grid-images">
+
+    <div class="image-box">
+      <img src="anh6.jpg">
+      <p>
+        <span>📅 Năm 2025</span>
+       Tích cực tham gia Ngày thứ 7 tình nguyện
+      </p>
+    </div>
+
+    <div class="image-box">
+      <img src="anh15.jpg">
+      <p>
+        <span>📅 Năm 2025</span>
+       Hoạt động ngày chủ nhật xanh
+      </p>
+    </div>
+
+    <div class="image-box">
+      <img src="anh17.jpg">
+      <p>
+        <span>📅 Tháng 10/2024</span>
+       Cán bộ, chiến sĩ Tiểu đoàn 158, Vùng 1 Hải quân giúp Trường THPT Phạm Ngũ Lão và Trường mầm non xã Ngũ Lão khắc phục hậu quả sau bão
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- VĂN HÓA – CHÍNH TRỊ -->
+<div class="card">
+  <h2>🎉 Văn hóa – chính trị</h2>
+  <div class="grid-images">
+
+    <div class="image-box">
+      <img src="anh12.jpg">
+      <p>
+        <span>📅 Ngày 22/9/2025</span>
+       Đại hội Đoàn cơ sở Tiểu đoàn 158 nhiệm kỳ 2025-2030
+      </p>
+    </div>
+
+    <div class="image-box">
+      <img src="anh16.jpg">
+      <p>
+        <span>📅 Ngày 30/5/2025</span>
+       Tiểu đoàn 158 trao kinh phí hỗ trợ xây dựng nhà đồng đội cho quân nhân
+      </p>
+    </div>
+
+    <div class="image-box">
+      <img src="anh11.jpg">
+      <p>
+        <span>📅 Ngày 22/9/2025</span>
+        Hoạt động VHVN cùng đơn vị kết nghĩa
+      </p>
+    </div>
+
+  </div>
+</div>
+
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="this.style.display='none'">
+  <img id="lightbox-img">
+</div>
+
+<script>
+document.querySelectorAll('.image-box img, .slideshow img').forEach(img=>{
+  img.onclick=()=>{
+    document.getElementById('lightbox-img').src=img.src;
+    document.getElementById('lightbox').style.display='flex';
+  }
+});
+
+let i=0;
+const slides=document.querySelectorAll('.slideshow img');
+if(slides.length>0){
+  setInterval(()=>{
+    slides[i].classList.remove('active');
+    i=(i+1)%slides.length;
+    slides[i].classList.add('active');
+  },3000);
+}
+
+function toggleCaption(){
+  document.querySelectorAll('.image-box p').forEach(p=>{
+    p.style.display=(p.style.display==='none')?'block':'none';
+  });
+}
+
+document.querySelectorAll('.acc-title').forEach(title=>{
+  title.onclick=()=>{
+    const content=title.nextElementSibling;
+    content.style.display=
+      content.style.display==='block'?'none':'block';
+  }
+});
+</script>
+
+</body>
+</html>
